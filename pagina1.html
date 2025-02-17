@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurazione della Rete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #000;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(173, 216, 230, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(128, 128, 128, 0.3);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .content {
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+        .text-block {
+            background: rgba(176, 224, 230, 0.85);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(128, 128, 128, 0.3);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .text-block:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(128, 128, 128, 0.5);
+        }
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: rgba(100, 150, 200, 0.5);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        h3 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+        }
+        p, pre {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #000;
+            text-align: justify;
+        }
+        pre {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+        button {
+            background: #87CEEB;
+            color: black;
+            border: none;
+            padding: 12px 24px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+            box-shadow: 0 2px 4px rgba(128, 128, 128, 0.3);
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #4682B4;
+            box-shadow: 0 4px 6px rgba(128, 128, 128, 0.5);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        /* Aggiunto stile per le immagini */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Per evitare spazio extra sotto l'immagine */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .router-section {
+            display: flex; /* Utilizza Flexbox per allineare immagine e testo */
+            align-items: flex-start; /* Allinea gli elementi all'inizio del contenitore */
+            margin-bottom: 30px; /* Aggiunge spazio tra le sezioni dei router */
+        }
+        .router-section img {
+            max-width: 300px; /* Imposta la larghezza massima per l'immagine */
+            margin-right: 20px; /* Aggiunge spazio tra l'immagine e il testo */
+        }
+        .router-section pre {
+            flex-grow: 1; /* Permette al testo di occupare lo spazio rimanente */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Configurazione della Rete</h2>
+        <section class="content">
+            <div class="text-block">
+                <h3>Descrizione della Rete</h3>
+                <p>Il progetto prevede una rete scolastica distribuita su tre sedi con routing statico tra i router e connessioni seriali tra di essi. Ogni sede è segmentata in più sottoreti, utilizzando VLAN per separare la rete amministrativa dalla rete didattica.</p>
+            </div>
+
+            <div class="text-block">
+                <h3>Sedi e Configurazione della Rete</h3>
+                <h4>Sede 1 (Scuola 1)</h4>
+                <ul>
+                    <li>Rete WLAN Aule/Biblioteca:
+                        <ul>
+                            <li>Gateway: 192.168.0.1</li>
+                            <li>DNS: 8.8.8.8</li>
+                        </ul>
+                    </li>
+                    <li>Rete Segreteria:
+                        <ul>
+                            <li>Gateway: 192.168.1.1</li>
+                            <li>DNS: 8.8.8.8</li>
+                        </ul>
+                    </li>
+                    <li>Router Sede 1:
+                        <ul>
+                            <li>Porta seriale verso Sede 2: 200.100.50.1</li>
+                            <li>Porta seriale verso Server (Sede 3): 200.200.50.1</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Sede 2 (Scuola 2)</h4>
+                <ul>
+                    <li>Rete WLAN Aule/Biblioteca:
+                        <ul>
+                            <li>Gateway: 192.168.2.1</li>
+                            <li>DNS: 8.8.8.8</li>
+                        </ul>
+                    </li>
+                    <li>Rete Segreteria:
+                        <ul>
+                            <li>Gateway: 192.168.4.1</li>
+                            <li>DNS: 8.8.8.8</li>
+                        </ul>
+                    </li>
+                    <li>Router Sede 2:
+                        <ul>
+                            <li>Porta seriale verso Sede 1: 200.100.50.2</li>
+                            <li>Porta seriale verso Server (Sede 3): 200.200.50.2</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Sede 3 (Centro Server e DHCP)</h4>
+                <ul>
+                    <li>Rete Server:
+                        <ul>
+                            <li>Gateway: 192.168.3.1</li>
+                            <li>Server DNS/DHCP: 192.168.3.2</li>
+                        </ul>
+                    </li>
+                    <li>Router Sede 3:
+                        <ul>
+                            <li>Porta seriale verso Sede 1: 200.200.50.1</li>
+                            <li>Porta seriale verso Sede 2: 200.200.50.2</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Configurazione IP & Routing</h4>
+                <p>Il routing statico è stato utilizzato per permettere la comunicazione tra le sedi.</p>
+            </div>
+
+            <div class="text-block">
+                <h3>Configurazione dei Router</h3>
+
+                <div class="router-section">
+                    <img src="sede1.jpg" alt="Immagine Sede 1">
+                    <pre>
+enable
+configure terminal
+
+! Configurazione interfacce LAN per le sottoreti
+interface GigabitEthernet0/0
+ip address 192.168.0.1 255.255.255.0
+no shutdown
+
+interface GigabitEthernet0/1
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+
+! Configurazione interfacce seriali
+interface Serial0/0/0
+ip address 200.100.50.1
+255.255.255.252
+clock rate 64000
+no shutdown
+
+interface Serial0/0/1
+ip address 200.200.50.1 255.255.255.252
+no shutdown
+
+! Configurazione del routing statico
+ip route 192.168.2.0 255.255.255.0 200.100.50.2
+ip route 192.168.4.0 255.255.255.0 200.100.50.2
+ip route 192.168.3.0 255.255.255.0 200.200.50.2
+
+! Configurazione DHCP Helper per inoltrare richieste DHCP al server remoto
+interface GigabitEthernet0/0
+ip helper-address 192.168.3.2
+
+interface GigabitEthernet0/1
+ip helper-address 192.168.3.2
+                    </pre>
+                </div>
+
+                <div class="router-section">
+                    <img src="sede2.jpg" alt="Immagine Sede 2">
+                    <pre>
+enable
+configure terminal
+
+! Configurazione interfacce LAN per le sottoreti
+interface GigabitEthernet0/0
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+
+interface GigabitEthernet0/1
+ip address 192.168.4.1 255.255.255.0
+no shutdown
+
+! Configurazione interfacce seriali
+interface Serial0/0/0
+ip address 200.100.50.2 255.255.255.252
+no shutdown
+
+interface Serial0/0/1
+ip address 200.200.50.2 255.255.255.252
+no shutdown
+
+! Configurazione del routing statico
+ip route 192.168.0.0 255.255.255.0 200.100.50.1
+ip route 192.168.1.0 255.255.255.0 200.100.50.1
+ip route 192.168.3.0 255.255.255.0 200.200.50.2
+
+! Configurazione DHCP Helper
+interface GigabitEthernet0/0
+ip helper-address 192.168.3.2
+
+interface GigabitEthernet0/1
+ip helper-address 192.168.3.2
+                    </pre>
+                </div>
+
+                <div class="router-section">
+                    <img src="sede3.jpg" alt="Immagine Sede 3 (Server)">
+                    <pre>
+enable
+configure terminal
+
+! Configurazione interfaccia per la rete server
+interface GigabitEthernet0/0
+ip address 192.168.3.1 255.255.255.0
+no shutdown
+
+! Configurazione interfacce seriali
+interface Serial0/0/0
+ip address 200.200.50.1 255.255.255.252
+no shutdown
+
+interface Serial0/0/1
+ip address 200.200.50.2 255.255.252
+no shutdown
+
+! Configurazione routing statico
+ip route 192.168.0.0 255.255.255.0 200.200.50.1
+ip route 192.168.1.0 255.255.255.0 200.200.50.1
+ip route 192.168.2.0 255.255.255.0 200.200.50.2
+ip route 192.168.4.0 255.255.255.0 200.200.50.2
+                    </pre>
+                </div>
+            </div>
+            <div class="text-block">
+                <h3>Configurazione degli Switch (Trunking per VLAN WLAN e Segreteria)</h3>
+                <p>Sugli switch che gestiscono le sottoreti delle scuole, il trunking è stato abilitato per permettere il traffico di VLAN multiple.</p>
+                <pre>
+enable
+configure terminal
+
+! Configurazione porte trunk per supportare VLAN multiple
+interface GigabitEthernet0/1
+switchport mode trunk
+
+interface GigabitEthernet0/2
+switchport mode trunk
+                </pre>
+            </div>
+
+            <div class="text-block">
+                <h3>Conclusione</h3>
+                <p>Questa rete permette una comunicazione sicura ed efficiente tra le sedi, garantendo la separazione logica delle sottoreti tramite VLAN e un instradamento gestito con routing statico. L'uso del server DHCP centralizzato semplifica l'assegnazione degli indirizzi IP, mentre il trunking sugli switch consente la gestione delle WLAN interne.</p>
+            </div>
+        </section>
+        <button onclick="location.href='pagina2.html'">Torna alla pagina precedente</button>
+    </div>
+</body>
+</html>
