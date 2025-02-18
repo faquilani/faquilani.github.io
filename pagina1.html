@@ -136,14 +136,14 @@
         <section class="content">
             <div class="text-block">
                 <h3>Descrizione della Rete</h3>
-                <p>Il progetto prevede una rete scolastica distribuita su tre sedi con routing statico tra i router e connessioni seriali tra di essi. Ogni sede è segmentata in più sottoreti, utilizzando VLAN per separare la rete amministrativa dalla rete didattica.</p>
+                <p>Il progetto prevede una rete scolastica distribuita su tre sedi con routing statico tra i router e connessioni seriali tra di essi. Ogni sede è segmentata in più sottoreti, utilizzando reti LAN-VLAN per separare la rete amministrativa dalla rete didattica.</p>
             </div>
 
             <div class="text-block">
                 <h3>Sedi e Configurazione della Rete</h3>
                 <h4>Sede 1 (Scuola 1)</h4>
                 <ul>
-                    <li>Rete WLAN Aule/Biblioteca:
+                    <li>Rete Aule/Biblioteca:
                         <ul>
                             <li>Gateway: 192.168.0.1</li>
                             <li>DNS: 8.8.8.8</li>
@@ -157,7 +157,7 @@
                     </li>
                     <li>Router Sede 1:
                         <ul>
-                            <li>Porta seriale verso Sede 2: 200.100.50.1</li>
+                            <li>Porta seriale verso Sede 2: 200.100.50.2</li>
                             <li>Porta seriale verso Server (Sede 3): 200.200.50.1</li>
                         </ul>
                     </li>
@@ -165,7 +165,7 @@
 
                 <h4>Sede 2 (Scuola 2)</h4>
                 <ul>
-                    <li>Rete WLAN Aule/Biblioteca:
+                    <li>Rete Aule/Biblioteca:
                         <ul>
                             <li>Gateway: 192.168.2.1</li>
                             <li>DNS: 8.8.8.8</li>
@@ -179,8 +179,8 @@
                     </li>
                     <li>Router Sede 2:
                         <ul>
-                            <li>Porta seriale verso Sede 1: 200.100.50.2</li>
-                            <li>Porta seriale verso Server (Sede 3): 200.200.50.2</li>
+                            <li>Porta seriale verso Sede 1: 200.100.50.1</li>
+                            <li>Porta seriale verso Server (Sede 3): 200.50.50.2</li>
                         </ul>
                     </li>
                 </ul>
@@ -196,7 +196,7 @@
                     <li>Router Sede 3:
                         <ul>
                             <li>Porta seriale verso Sede 1: 200.200.50.1</li>
-                            <li>Porta seriale verso Sede 2: 200.200.50.2</li>
+                            <li>Porta seriale verso Sede 2: 200.50.50.1</li>
                         </ul>
                     </li>
                 </ul>
@@ -215,22 +215,22 @@ enable
 configure terminal
 
 ! Configurazione interfacce LAN per le sottoreti
-interface GigabitEthernet0/0
+interface FastEthernetx/x
 ip address 192.168.0.1 255.255.255.0
 no shutdown
 
-interface GigabitEthernet0/1
+interface FastEthernetx/x
 ip address 192.168.1.1 255.255.255.0
 no shutdown
 
 ! Configurazione interfacce seriali
-interface Serial0/0/0
+interface Serialx/x (sede2)
 ip address 200.100.50.1
 255.255.255.252
 clock rate 64000
 no shutdown
 
-interface Serial0/0/1
+interface Serialx/x (server)
 ip address 200.200.50.1 255.255.255.252
 no shutdown
 
@@ -240,10 +240,10 @@ ip route 192.168.4.0 255.255.255.0 200.100.50.2
 ip route 192.168.3.0 255.255.255.0 200.200.50.2
 
 ! Configurazione DHCP Helper per inoltrare richieste DHCP al server remoto
-interface GigabitEthernet0/0
+interface FastEthernetx/x
 ip helper-address 192.168.3.2
 
-interface GigabitEthernet0/1
+interface FastEthernetx/x
 ip helper-address 192.168.3.2
                     </pre>
                 </div>
@@ -255,11 +255,11 @@ enable
 configure terminal
 
 ! Configurazione interfacce LAN per le sottoreti
-interface GigabitEthernet0/0
+interface FastEthernetx/x
 ip address 192.168.2.1 255.255.255.0
 no shutdown
 
-interface GigabitEthernet0/1
+interface FastEthernetx/x
 ip address 192.168.4.1 255.255.255.0
 no shutdown
 
@@ -268,7 +268,7 @@ interface Serial0/0/0
 ip address 200.100.50.2 255.255.255.252
 no shutdown
 
-interface Serial0/0/1
+interface Serialx/x
 ip address 200.200.50.2 255.255.255.252
 no shutdown
 
@@ -281,7 +281,7 @@ ip route 192.168.3.0 255.255.255.0 200.200.50.2
 interface GigabitEthernet0/0
 ip helper-address 192.168.3.2
 
-interface GigabitEthernet0/1
+interface FastEthernetx/x
 ip helper-address 192.168.3.2
                     </pre>
                 </div>
@@ -293,16 +293,16 @@ enable
 configure terminal
 
 ! Configurazione interfaccia per la rete server
-interface GigabitEthernet0/0
+interface FastEthernetx/x
 ip address 192.168.3.1 255.255.255.0
 no shutdown
 
 ! Configurazione interfacce seriali
-interface Serial0/0/0
+interface Seriax/x
 ip address 200.200.50.1 255.255.255.252
 no shutdown
 
-interface Serial0/0/1
+interface Serialx/x
 ip address 200.200.50.2 255.255.252
 no shutdown
 
@@ -322,10 +322,10 @@ enable
 configure terminal
 
 ! Configurazione porte trunk per supportare VLAN multiple
-interface GigabitEthernet0/1
+interface FastEthernetx/x
 switchport mode trunk
 
-interface GigabitEthernet0/2
+interface FastEthernetx/x
 switchport mode trunk
                 </pre>
             </div>
@@ -335,7 +335,11 @@ switchport mode trunk
                 <p>Questa rete permette una comunicazione sicura ed efficiente tra le sedi, garantendo la separazione logica delle sottoreti tramite VLAN e un instradamento gestito con routing statico. L'uso del server DHCP centralizzato semplifica l'assegnazione degli indirizzi IP, mentre il trunking sugli switch consente la gestione delle WLAN interne.</p>
             </div>
         </section>
-        <button onclick="location.href='index.html'">Torna alla pagina precedente</button>
+        <a href="index.html">
+            <button>Torna alla pagina precedente</button>
+        </a>
+        <br>
+        <button onclick="window.location.href='Progetto_networking.pkt'">Scarica il file Cisco</button>
     </div>
 </body>
 </html>
