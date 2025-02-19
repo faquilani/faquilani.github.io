@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configurazione della Rete</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,6 +20,32 @@
             flex-direction: column;
             min-height: 100vh;
         }
+        header {
+            width: 100%;
+            background: rgba(173, 216, 230, 0.8);
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 4px 10px rgba(128, 128, 128, 0.3);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            box-sizing: border-box;
+        }
+        nav {
+            width: 100%;
+            background: rgba(173, 216, 230, 0.8);
+            padding: 10px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 10px rgba(128, 128, 128, 0.3);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            box-sizing: border-box;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
         .container {
             width: 90%;
             max-width: 1000px;
@@ -29,6 +56,7 @@
             backdrop-filter: blur(10px);
             text-align: center;
             box-sizing: border-box;
+            margin-top: 20px;
         }
         .content {
             width: 100%;
@@ -81,6 +109,8 @@
             padding: 10px;
             border-radius: 10px;
             overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            white-space: pre-wrap;
         }
         button {
             background: #87CEEB;
@@ -108,238 +138,265 @@
             padding: 8px;
             text-align: left;
         }
-        /* Aggiunto stile per le immagini */
         img {
             max-width: 100%;
             height: auto;
-            display: block; /* Per evitare spazio extra sotto l'immagine */
+            display: block;
             margin-left: auto;
             margin-right: auto;
+            border-radius: 10px;
         }
         .router-section {
-            display: flex; /* Utilizza Flexbox per allineare immagine e testo */
-            align-items: flex-start; /* Allinea gli elementi all'inizio del contenitore */
-            margin-bottom: 30px; /* Aggiunge spazio tra le sezioni dei router */
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
         }
         .router-section img {
-            max-width: 300px; /* Imposta la larghezza massima per l'immagine */
-            margin-right: 20px; /* Aggiunge spazio tra l'immagine e il testo */
+            max-width: 300px;
+            margin-right: 20px;
+            border-radius: 10px;
         }
         .router-section pre {
-            flex-grow: 1; /* Permette al testo di occupare lo spazio rimanente */
+            flex-grow: 1;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Configurazione della Rete Scolastica</h1>
+    </header>
+    <nav>
+        <a href="#descrizione"><i class="fas fa-info-circle"></i> Descrizione</a>
+        <a href="#sedi"><i class="fas fa-building"></i> Sedi</a>
+        <a href="#router"><i class="fas fa-network-wired"></i> Router</a>
+        <a href="#switch"><i class="fas fa-exchange-alt"></i> Switch</a>
+        <a href="#conclusione"><i class="fas fa-check-circle"></i> Conclusione</a>
+    </nav>
     <div class="container">
-        <h2>Configurazione della Rete</h2>
         <section class="content">
-            <div class="text-block">
-                <h3>Descrizione della Rete</h3>
+            <div class="text-block" id="descrizione">
+                <h3><i class="fas fa-info-circle"></i> Descrizione della Rete</h3>
                 <p>Il progetto prevede una rete scolastica distribuita su tre sedi con routing statico tra i router e connessioni seriali tra di essi. Ogni sede è segmentata in più sottoreti, utilizzando reti LAN-VLAN per separare la rete amministrativa dalla rete didattica.</p>
             </div>
 
-            <div class="text-block">
-                <h3>Sedi e Configurazione della Rete</h3>
+            <div class="text-block" id="sedi">
+                <h3><i class="fas fa-building"></i> Sedi e Configurazione della Rete</h3>
                 <h4>Sede 1 (Scuola 1)</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rete</th>
+                            <th>Gateway</th>
+                            <th>DNS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aule/Biblioteca</td>
+                            <td>192.168.0.1</td>
+                            <td>8.8.8.8</td>
+                        </tr>
+                        <tr>
+                            <td>Segreteria</td>
+                            <td>192.168.1.1</td>
+                            <td>8.8.8.8</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Router Sede 1</h4>
                 <ul>
-                    <li>Rete Aule/Biblioteca:
-                        <ul>
-                            <li>Gateway: 192.168.0.1</li>
-                            <li>DNS: 8.8.8.8</li>
-                        </ul>
-                    </li>
-                    <li>Rete Segreteria:
-                        <ul>
-                            <li>Gateway: 192.168.1.1</li>
-                            <li>DNS: 8.8.8.8</li>
-                        </ul>
-                    </li>
-                    <li>Router Sede 1:
-                        <ul>
-                            <li>Porta seriale verso Sede 2: 200.100.50.2</li>
-                            <li>Porta seriale verso Server (Sede 3): 200.200.50.1</li>
-                        </ul>
-                    </li>
+                    <li>Porta seriale verso Sede 2: 200.100.50.2</li>
+                    <li>Porta seriale verso Server (Sede 3): 200.200.50.1</li>
                 </ul>
 
                 <h4>Sede 2 (Scuola 2)</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rete</th>
+                            <th>Gateway</th>
+                            <th>DNS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aule/Biblioteca</td>
+                            <td>192.168.2.1</td>
+                            <td>8.8.8.8</td>
+                        </tr>
+                        <tr>
+                            <td>Segreteria</td>
+                            <td>192.168.4.1</td>
+                            <td>8.8.8.8</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Router Sede 2</h4>
                 <ul>
-                    <li>Rete Aule/Biblioteca:
-                        <ul>
-                            <li>Gateway: 192.168.2.1</li>
-                            <li>DNS: 8.8.8.8</li>
-                        </ul>
-                    </li>
-                    <li>Rete Segreteria:
-                        <ul>
-                            <li>Gateway: 192.168.4.1</li>
-                            <li>DNS: 8.8.8.8</li>
-                        </ul>
-                    </li>
-                    <li>Router Sede 2:
-                        <ul>
-                            <li>Porta seriale verso Sede 1: 200.100.50.1</li>
-                            <li>Porta seriale verso Server (Sede 3): 200.50.50.2</li>
-                        </ul>
-                    </li>
+                    <li>Porta seriale verso Sede 1: 200.100.50.1</li>
+                    <li>Porta seriale verso Server (Sede 3): 200.50.50.2</li>
                 </ul>
 
                 <h4>Sede 3 (Centro Server e DHCP)</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rete</th>
+                            <th>Gateway</th>
+                            <th>Server DNS/DHCP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Server</td>
+                            <td>192.168.3.1</td>
+                            <td>192.168.3.2</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Router Sede 3</h4>
                 <ul>
-                    <li>Rete Server:
-                        <ul>
-                            <li>Gateway: 192.168.3.1</li>
-                            <li>Server DNS/DHCP: 192.168.3.2</li>
-                        </ul>
-                    </li>
-                    <li>Router Sede 3:
-                        <ul>
-                            <li>Porta seriale verso Sede 1: 200.200.50.1</li>
-                            <li>Porta seriale verso Sede 2: 200.50.50.1</li>
-                        </ul>
-                    </li>
+                    <li>Porta seriale verso Sede 1: 200.200.50.1</li>
+                    <li>Porta seriale verso Sede 2: 200.50.50.1</li>
                 </ul>
 
                 <h4>Configurazione IP & Routing</h4>
                 <p>Il routing statico è stato utilizzato per permettere la comunicazione tra le sedi.</p>
             </div>
 
-            <div class="text-block">
-                <h3>Configurazione dei Router</h3>
+            <div class="text-block" id="router">
+                <h3><i class="fas fa-network-wired"></i> Configurazione dei Router</h3>
 
                 <div class="router-section">
                     <img src="sede1.jpg" alt="Immagine Sede 1">
                     <pre>
-enable
-configure terminal
+                        enable
+                        configure terminal
 
-! Configurazione interfacce LAN per le sottoreti
-interface FastEthernetx/x
-ip address 192.168.0.1 255.255.255.0
-no shutdown
+                        ! Configurazione interfacce LAN per le sottoreti
+                        interface FastEthernetx/x
+                        ip address 192.168.0.1 255.255.255.0
+                        no shutdown
 
-interface FastEthernetx/x
-ip address 192.168.1.1 255.255.255.0
-no shutdown
+                        interface FastEthernetx/x
+                        ip address 192.168.1.1 255.255.255.0
+                        no shutdown
 
-! Configurazione interfacce seriali
-interface Serialx/x (sede2)
-ip address 200.100.50.1
-255.255.255.252
-clock rate 64000
-no shutdown
+                        ! Configurazione interfacce seriali
+                        interface Serialx/x (sede2)
+                        ip address 200.100.50.1 255.255.255.252
+                        clock rate 64000
+                        no shutdown
 
-interface Serialx/x (server)
-ip address 200.200.50.1 255.255.255.252
-no shutdown
+                        interface Serialx/x (server)
+                        ip address 200.200.50.1 255.255.255.252
+                        no shutdown
 
-! Configurazione del routing statico
-ip route 192.168.2.0 255.255.255.0 200.100.50.2
-ip route 192.168.4.0 255.255.255.0 200.100.50.2
-ip route 192.168.3.0 255.255.255.0 200.200.50.2
+                        ! Configurazione del routing statico
+                        ip route 192.168.2.0 255.255.255.0 200.100.50.2
+                        ip route 192.168.4.0 255.255.255.0 200.100.50.2
+                        ip route 192.168.3.0 255.255.255.0 200.200.50.2
 
-! Configurazione DHCP Helper per inoltrare richieste DHCP al server remoto
-interface FastEthernetx/x
-ip helper-address 192.168.3.2
+                        ! Configurazione DHCP Helper per inoltrare richieste DHCP al server remoto
+                        interface FastEthernetx/x
+                        ip helper-address 192.168.3.2
 
-interface FastEthernetx/x
-ip helper-address 192.168.3.2
+                        interface FastEthernetx/x
+                        ip helper-address 192.168.3.2
                     </pre>
                 </div>
 
                 <div class="router-section">
                     <img src="sede2.jpg" alt="Immagine Sede 2">
                     <pre>
-enable
-configure terminal
+                        enable
+                        configure terminal
 
-! Configurazione interfacce LAN per le sottoreti
-interface FastEthernetx/x
-ip address 192.168.2.1 255.255.255.0
-no shutdown
+                        ! Configurazione interfacce LAN per le sottoreti
+                        interface FastEthernetx/x
+                        ip address 192.168.2.1 255.255.255.0
+                        no shutdown
 
-interface FastEthernetx/x
-ip address 192.168.4.1 255.255.255.0
-no shutdown
+                        interface FastEthernetx/x
+                        ip address 192.168.4.1 255.255.255.0
+                        no shutdown
 
-! Configurazione interfacce seriali
-interface Serial0/0/0
-ip address 200.100.50.2 255.255.255.252
-no shutdown
+                        ! Configurazione interfacce seriali
+                        interface Serial0/0/0
+                        ip address 200.100.50.2 255.255.255.252
+                        no shutdown
 
-interface Serialx/x
-ip address 200.200.50.2 255.255.255.252
-no shutdown
+                        interface Serialx/x
+                        ip address 200.200.50.2 255.255.255.252
+                        no shutdown
 
-! Configurazione del routing statico
-ip route 192.168.0.0 255.255.255.0 200.100.50.1
-ip route 192.168.1.0 255.255.255.0 200.100.50.1
-ip route 192.168.3.0 255.255.255.0 200.200.50.2
+                        ! Configurazione del routing statico
+                        ip route 192.168.0.0 255.255.255.0 200.100.50.1
+                        ip route 192.168.1.0 255.255.255.0 200.100.50.1
+                        ip route 192.168.3.0 255.255.255.0 200.200.50.2
 
-! Configurazione DHCP Helper
-interface GigabitEthernet0/0
-ip helper-address 192.168.3.2
+                        ! Configurazione DHCP Helper
+                        interface GigabitEthernet0/0
+                        ip helper-address 192.168.3.2
 
-interface FastEthernetx/x
-ip helper-address 192.168.3.2
+                        interface FastEthernetx/x
+                        ip helper-address 192.168.3.2
                     </pre>
                 </div>
 
                 <div class="router-section">
                     <img src="sede3.jpg" alt="Immagine Sede 3 (Server)">
                     <pre>
-enable
-configure terminal
+                        enable
+                        configure terminal
 
-! Configurazione interfaccia per la rete server
-interface FastEthernetx/x
-ip address 192.168.3.1 255.255.255.0
-no shutdown
+                        ! Configurazione interfaccia per la rete server
+                        interface FastEthernetx/x
+                        ip address 192.168.3.1 255.255.255.0
+                        no shutdown
 
-! Configurazione interfacce seriali
-interface Seriax/x
-ip address 200.200.50.1 255.255.255.252
-no shutdown
+                        ! Configurazione interfacce seriali
+                        interface Seriax/x
+                        ip address 200.200.50.1 255.255.255.252
+                        no shutdown
 
-interface Serialx/x
-ip address 200.200.50.2 255.255.252
-no shutdown
+                        interface Serialx/x
+                        ip address 200.200.50.2 255.255.255.252
+                        no shutdown
 
-! Configurazione routing statico
-ip route 192.168.0.0 255.255.255.0 200.200.50.1
-ip route 192.168.1.0 255.255.255.0 200.200.50.1
-ip route 192.168.2.0 255.255.255.0 200.200.50.2
-ip route 192.168.4.0 255.255.255.0 200.200.50.2
+                        ! Configurazione routing statico
+                        ip route 192.168.0.0 255.255.255.0 200.200.50.1
+                        ip route 192.168.1.0 255.255.255.0 200.200.50.1
+                        ip route 192.168.2.0 255.255.255.0 200.200.50.2
+                        ip route 192.168.4.0 255.255.255.0 200.200.50.2
                     </pre>
                 </div>
             </div>
-            <div class="text-block">
-                <h3>Configurazione degli Switch (Trunking per VLAN WLAN e Segreteria)</h3>
+            <div class="text-block" id="switch">
+                <h3><i class="fas fa-exchange-alt"></i> Configurazione degli Switch (Trunking per VLAN WLAN e Segreteria)</h3>
                 <p>Sugli switch che gestiscono le sottoreti delle scuole, il trunking è stato abilitato per permettere il traffico di VLAN multiple.</p>
                 <pre>
-enable
-configure terminal
+                    enable
+                    configure terminal
 
-! Configurazione porte trunk per supportare VLAN multiple
-interface FastEthernetx/x
-switchport mode trunk
+                    ! Configurazione porte trunk per supportare VLAN multiple
+                    interface FastEthernetx/x
+                    switchport mode trunk
 
-interface FastEthernetx/x
-switchport mode trunk
+                    interface FastEthernetx/x
+                    switchport mode trunk
                 </pre>
             </div>
 
-            <div class="text-block">
-                <h3>Conclusione</h3>
+            <div class="text-block" id="conclusione"><i class="fas fa-check-circle"></i> Conclusione</h3>
                 <p>Questa rete permette una comunicazione sicura ed efficiente tra le sedi, garantendo la separazione logica delle sottoreti tramite VLAN e un instradamento gestito con routing statico. L'uso del server DHCP centralizzato semplifica l'assegnazione degli indirizzi IP, mentre il trunking sugli switch consente la gestione delle WLAN interne.</p>
             </div>
         </section>
         <a href="index.html">
-            <button>Torna alla pagina precedente</button>
+            <button><i class="fas fa-arrow-left"></i> Torna alla pagina precedente</button>
         </a>
         <br>
-        <button onclick="window.location.href='Progetto_networking.pkt'">Scarica il file Cisco</button>
+        <button onclick="window.location.href='Progetto_networking.pkt'"><i class="fas fa-download"></i> Scarica il file Cisco</button>
     </div>
 </body>
 </html>
